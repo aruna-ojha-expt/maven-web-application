@@ -22,11 +22,13 @@ sh "${mavenHome}/bin/mvn clean sonar:sonar"
 stage ('uploadArtifactintoArtifactRepo'){
 sh "${mavenHome}/bin/mvn clean deploy"
 }
+/*
 stage ('DeployInContainer'){
 sshagent(['1cfea5bf-3e51-4c3e-9dd6-7928eb9e7cc3']){
 sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war ec2-user@172.31.42.126:/opt/apache-tomcat-9.0.73/webapps"
 }
 }
+*/
 }//try closing
 
 catch(e){
