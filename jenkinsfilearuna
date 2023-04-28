@@ -32,11 +32,11 @@ sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war ec2-user@17
 }//try closing
 
 catch(e){
-slackNotification(currentBuild.result)
+slackNotifications(currentBuild.result)
 throw e 
 }
 finally{
-slackNotification(currentBuild.result)
+slackNotifications(currentBuild.result)
 }
 
 }//node closing tag
@@ -44,7 +44,7 @@ slackNotification(currentBuild.result)
 
 // code snippet for slckNotification
 
-def slckNotification(String buildStatus = 'STARTED') {
+def slckNotifications(String buildStatus = 'STARTED') {
   // build status of null means successful
   buildStatus =  buildStatus ?: 'SUCCESSFUL'
 
