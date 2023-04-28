@@ -19,10 +19,10 @@ git branch: 'development', credentialsId: 'd7801b14-e86d-4a36-9330-e59c6b0bccb3'
 stage ('buldPackage'){
 sh "${mavenHome}/bin/mvn clean package"
 }
-stage ('exicuteSonarqubeReport')
+stage ('exicuteSonarqubeReport'){
 sh "${mavenHome}/bin/mvn clean sonar:sonar"
 }
-stage ('uploadArtifactintoArtifactRepo')
+stage ('uploadArtifactintoArtifactRepo'){
 sh "${mavenHome}/bin/mvn clean deploy"
 }
 stage ('DeployInContainer'){
