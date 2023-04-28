@@ -1,5 +1,3 @@
-pipeline project maven-web-application scripted way
-
 node {
 
 echo "jenkins url is: ${env.JENKINS_URL}"
@@ -10,7 +8,6 @@ echo "job name is: ${env.JOB_NAME}"
 def mavenHome = tool name: "maven3.9.1"
 
 try{
-slckNotification('STARTED')
 
 stage ('gitCode'){
 git branch: 'development', credentialsId: 'd7801b14-e86d-4a36-9330-e59c6b0bccb3', url: 'https://github.com/aruna-ojha-expt/maven-web-application.git'
