@@ -23,29 +23,29 @@ sh "${mavenHome}/bin/mvn clean sonar:sonar"
 stage ('uploadArtifactintoArtifactRepo'){
 sh "${mavenHome}/bin/mvn clean deploy"
 }
-/*
 stage ('DeployInContainer'){
 sshagent(['1cfea5bf-3e51-4c3e-9dd6-7928eb9e7cc3']){
 sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war ec2-user@172.31.42.126:/opt/apache-tomcat-9.0.73/webapps"
 }
 }
-*/
+
 }//try closing
 
-catch(e){
-slackNotifications(currentBuild.result)
-throw e 
-}
-finally{
-slackNotifications(currentBuild.result)
-}
+catch(e) {
+ // If there was an exception thrown, the build failed
+     currentBuild.result = "FAILED"
+     throw e
+ }finally {
+    // Success or failure, always send notifications
+    sendSlackNotifications(currentBuild.result)
+  }
 
 }//node closing tag
 
 
 // code snippet for slckNotification
 
-def slckNotifications(String buildStatus = 'STARTED') {
+def sendSlackNotifications(String buildStatus = 'STARTED') {
   // build status of null means successful
   buildStatus =  buildStatus ?: 'SUCCESSFUL'
 
@@ -53,13 +53,13 @@ def slckNotifications(String buildStatus = 'STARTED') {
   def colorName = 'RED'
   def colorCode = '#FF0000'
   def subject = "${buildStatus}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'"
-  def summary = "${subject} (${env.BUILD_URL})"
+def summary = "${subject} (${env.BUILD_URL})"
 
   // Override default values based on build status
   if (buildStatus == 'STARTED') {
     color = 'YELLOW'
     colorCode = '#FFFF00'
-  } else if (buildStatus == 'SUCCESS') {
+  } else if (buildStatus == 'SUCCESSFUL') {
     color = 'GREEN'
     colorCode = '#00FF00'
   } else {
