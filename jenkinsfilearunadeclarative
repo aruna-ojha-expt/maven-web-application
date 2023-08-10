@@ -37,14 +37,14 @@ stages{
    sh "mvn sonar:sonar"
   }
   }
-*/
+/*
   //Uploading artifcats into Nexus repo
   stage('UploadArtifactinotNexus'){
   steps{
    sh "mvn deploy"
   }
   }
-  /*
+  */
 //deploy buildfile into tomcat
 stage('DeployAppintoTomcatServer'){
   steps{
