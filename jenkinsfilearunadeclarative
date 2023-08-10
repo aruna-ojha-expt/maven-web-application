@@ -34,17 +34,15 @@ stages{
   //Executing sonarqube Report
   stage('SOnarQubeReport'){
   steps{
-   sh "mvn sonar:sonar"
+   sh "mvn clean sonar:sonar"
   }
   }
-/*
   //Uploading artifcats into Nexus repo
   stage('UploadArtifactinotNexus'){
   steps{
-   sh "mvn deploy"
+   sh "mvn clean deploy"
   }
   }
-  */
 //deploy buildfile into tomcat
 stage('DeployAppintoTomcatServer'){
   steps{
