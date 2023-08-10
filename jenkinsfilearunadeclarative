@@ -45,6 +45,7 @@ stages{
   }
   }
   /*
+//deploy buildfile into tomcat
 stage('DeployAppintoTomcatServer'){
   steps{
   sshagent(['11da9b68-27c9-4c5d-b59d-b31bf9bb6973']){
