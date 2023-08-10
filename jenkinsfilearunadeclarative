@@ -37,13 +37,15 @@ stages{
    sh "mvn sonar:sonar"
   }
   }
+*/
   //Uploading artifcats into Nexus repo
   stage('UploadArtifactinotNexus'){
   steps{
    sh "mvn deploy"
   }
   }
-  stage('DeployAppintoTomcatServer'){
+  /*
+stage('DeployAppintoTomcatServer'){
   steps{
   sshagent(['11da9b68-27c9-4c5d-b59d-b31bf9bb6973']){
 sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war  ec2-user@172.31.35.182:/opt/apache-tomcat-10.1.11/webapps"
