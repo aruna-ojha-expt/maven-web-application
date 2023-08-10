@@ -5,14 +5,13 @@ echo "jenkins node name is: ${env.NODE_NAME}"
 echo "job name is: ${env.JOB_NAME}"
 
 
-def mavenHome = tool name: "maven3.9.1"
+def mavenHome = tool name: "maven3.9.4"
 
 try{
 sendSlackNotifications('STARTED')
 
 stage ('gitCode'){
-git branch: 'development', credentialsId: 'd7801b14-e86d-4a36-9330-e59c6b0bccb3', url: 'https://github.com/aruna-ojha-expt/maven-web-application.git'
-
+git branch: 'development', credentialsId: '4ad158bf-ea06-4120-af32-9526b30e2d11', url: 'https://github.com/aruna-ojha-expt/maven-web-application.git'
 }
 stage ('buldPackage'){
 sh "${mavenHome}/bin/mvn clean package"
@@ -24,8 +23,8 @@ stage ('uploadArtifactintoArtifactRepo'){
 sh "${mavenHome}/bin/mvn clean deploy"
 }
 stage ('DeployInContainer'){
-sshagent(['1cfea5bf-3e51-4c3e-9dd6-7928eb9e7cc3']){
-sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war ec2-user@172.31.42.126:/opt/apache-tomcat-9.0.73/webapps"
+sshagent(['11da9b68-27c9-4c5d-b59d-b31bf9bb6973']){
+sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war ec2-user@172.31.35.182:/opt/apache-tomcat-10.1.11/webapps"
 }
 }
 
